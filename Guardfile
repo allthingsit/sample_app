@@ -3,14 +3,15 @@ require 'active_support/core_ext'
 guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' } do
   watch('config/application.rb')
   watch('config/environment.rb')
-  watch(%r{^config/environments/.+\.rb$})
+  watch('config/environments/test.rb')
   watch(%r{^config/initializers/.+\.rb$})
   watch('Gemfile')
   watch('Gemfile.lock')
-  watch('spec/spec_helper.rb')
-  watch('test/test_helper.rb')
-  watch('spec/support/')
+  watch('spec/spec_helper.rb') { :rspec }
+  watch('test/test_helper.rb') { :test_unit }
+  watch(%r{features/support/}) { :cucumber }
 end
+
 
 guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--drb' do
   watch(%r{^spec/.+_spec\.rb$})
@@ -41,3 +42,5 @@ guard 'rspec', :version => 2, :all_after_pass => false, :cli => '--drb' do
     "spec/requests/#{m[1].singularize}_pages_spec.rb"
   end
 end
+
+
