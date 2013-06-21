@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   def home
-  	@title = "Home"
+  	# Commented on purpose to see ROLE of ApplicationHelper @title = "Home"
+    @title = "Home"  
   end
 
   def contact
