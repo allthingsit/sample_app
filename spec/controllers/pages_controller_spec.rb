@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe PagesController do
+
+  let(:base_title) { "Ruby on Rails Tutorial Sample App" }
+
   render_views
 
   describe "GET 'home'" do
@@ -12,12 +15,12 @@ describe PagesController do
     it "should have the right title" do
       visit '/pages/home'
       page.should have_selector('title',
-                        :text => "Ruby on Rails Tutorial Sample App | Home")
+                        :text => "#{base_title} | Home")
     end
 
     it "should have a non-blank body" do
       get 'home'
-      response.body.should_not = //
+      response.body.should_not =~ /<body>\s*<\/body>/
     end
 
   end
@@ -31,7 +34,7 @@ describe PagesController do
       it "should have the right title" do
       visit '/pages/contact'
       page.should have_selector('title',
-                        :text => "Ruby on Rails Tutorial Sample App | Contact")
+                        :text => "#{base_title} | Contact")
     end
   end
 
@@ -43,7 +46,19 @@ describe PagesController do
       it "should have the right title" do
       visit '/pages/about'
       page.should have_selector('title',
-                        :text => "Ruby on Rails Tutorial Sample App | About")
+                        :text => "#{base_title} | About")
+    end
+  end
+
+     describe "GET 'services'" do
+    it "returns http success" do
+      get 'services'
+      response.should be_success
+    end
+      it "should have the right title" do
+      visit '/pages/services'
+      page.should have_selector('title',
+                        :text => "#{base_title} | Services")
     end
   end
 
